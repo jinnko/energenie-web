@@ -1,20 +1,31 @@
+A basic web interface to issue commands via a [Pi-mote control
+board](https://energenie4u.co.uk/catalogue/product/ENER314) to switch Energenie sockets on and off.
+
 Quick start
 ===========
 
-    sudo apt-get install build-essential python python-dev python-virtualenv
+This has been tested on Raspbian wheezy only, but should work on any distribution once you have the equivalent of the build environment working.
+
+    sudo apt-get install build-essential git python python-dev python-virtualenv
+
+Clone the repository.
+
+    git clone https://github.com/jinnko/energenie-web.git
+    
+Set up the dependencies.
+
+    cd energenie-web
     virtualenv .venv
     ln -s .venv/bin/activate
     source activate
     pip install flask energenie
-    ./energenie-web.py
 
-    wget 'https://github.com/twbs/bootstrap/releases/download/v3.3.6/bootstrap-3.3.6-dist.zip'
-    unzip bootstrap-3.3.6-dist.zip
-    
-    
-GPIO Permissions ================
+Activate the local virtualenv.
 
-To use this as the non-root user:
+    source activate
 
-    sudo chgrp -R dialout /sys/class/gpio
-    sudo chmod -R g+rw /sys/class/gpio
+Run the web server.  Unfortunately this must be run as `root` due to limitations with GPIO access.
+
+    sudo python ./energenie-web.py
+
+Get switching on and off by pointing your browser at **http://localhost:5000/** or wherever you're running the app.

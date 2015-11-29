@@ -10,15 +10,13 @@ app.config.update(dict( DEBUG=True ))
 @app.route("/")
 def index():
 	action = None
-	socket = None
 	return render_template('buttons.html')
 
-@app.route("/switch/<socket>", methods=['POST'])
-def switch_on(socket):
-	action = request.form['action']
-	if action == 'On':
+@app.route("/switch/<socket>/<action>", methods=['GET'])
+def switch(socket, action):
+	if action == 'on':
 		energenie.switch_on(int(socket))
-	elif action == 'Off':
+	elif action == 'off':
 		energenie.switch_off(int(socket))
 	return redirect(url_for('index'))
 
